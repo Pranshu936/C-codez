@@ -1,10 +1,4 @@
-https://dpaste.org/zwdzs 
-https://dpaste.org/zwdzs
-About History New snippet
-Python Expires in: 4 weeks, 1 day
-Delete Now
-Raw
-Slim
+
 #include <stdio.h>
 #include <stdlib.h>
 
