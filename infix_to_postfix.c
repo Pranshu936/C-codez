@@ -2,10 +2,8 @@
 #include <stdlib.h>
 #include <ctype.h>
 
-// Initial capacity of the stack
-#define INITIAL_CAPACITY 10 
+#define INITIAL_CAPACITY 10// Initial capacity of the stack
 #define MAX 100
-
 // Define the stack structure
 typedef struct {
     char *items;
@@ -24,6 +22,12 @@ void initialize(Stack *s) {
     }
 }
 
+// Function to check if the stack is full
+int isFull(Stack *s) {
+    return s->top == s->capacity - 1;
+}
+
+
 // Function to check if the stack is empty
 int isEmpty(Stack *s) {
     return s->top == -1;
@@ -41,7 +45,7 @@ void resize(Stack *s) {
 
 // Function to push an element to the stack
 void push(Stack *s, char value) {
-    if (s->top == s->capacity - 1) {
+    if (isFull(s)) {
         resize(s);
     }
     s->items[++(s->top)] = value;
