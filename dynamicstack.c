@@ -1,18 +1,24 @@
-
 #include <stdio.h>
 #include <stdlib.h>
 
-#define MAX 100  // Maximum size of the stack
+#define INITIAL_CAPACITY 10  // Initial capacity of the stack
 
 // Define the stack structure
 typedef struct {
-    int items[MAX];
+    int *items;
     int top;
+    int capacity;
 } Stack;
 
 // Function to initialize the stack
 void initialize(Stack *s) {
+    s->capacity = INITIAL_CAPACITY;
     s->top = -1;
+    s->items = (int *)malloc(s->capacity * sizeof(int));
+    if (s->items == NULL) {
+        printf("Memory allocation failed\n");
+        exit(1);
+    }
 }
 
 // Function to check if the stack is empty
@@ -22,14 +28,23 @@ int isEmpty(Stack *s) {
 
 // Function to check if the stack is full
 int isFull(Stack *s) {
-    return s->top == MAX - 1;
+    return s->top == s->capacity - 1;
+}
+
+// Function to resize the stack
+void resize(Stack *s) {
+    s->capacity *= 2;
+    s->items = (int *)realloc(s->items, s->capacity * sizeof(int));
+    if (s->items == NULL) {
+        printf("Memory reallocation failed\n");
+        exit(1);
+    }
 }
 
 // Function to push an element to the stack
 void push(Stack *s, int value) {
     if (isFull(s)) {
-        printf("Stack Overflow\n");
-        return;
+        resize(s);
     }
     s->items[++(s->top)] = value;
     printf("Pushed %d to the stack\n", value);
@@ -65,6 +80,11 @@ void display(Stack *s) {
     }
 }
 
+// Function to free the allocated memory for the stack
+void freeStack(Stack *s) {
+    free(s->items);
+}
+
 // Main function to demonstrate stack operations
 int main() {
     Stack s;
@@ -80,5 +100,6 @@ int main() {
     
     display(&s);
     
+    freeStack(&s);  // Free the allocated memory
     return 0;
 }
