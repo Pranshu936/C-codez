@@ -2,17 +2,26 @@
 #include <stdlib.h>
 #include <ctype.h>
 
-#define MAX 100  // Maximum size of the stack
+// Initial capacity of the stack
+#define INITIAL_CAPACITY 10 
+#define MAX 100
 
 // Define the stack structure
 typedef struct {
-    char items[MAX];
+    char *items;
     int top;
+    int capacity;
 } Stack;
 
 // Function to initialize the stack
 void initialize(Stack *s) {
+    s->capacity = INITIAL_CAPACITY;
     s->top = -1;
+    s->items = (char *)malloc(s->capacity * sizeof(char));
+    if (s->items == NULL) {
+        printf("Memory allocation failed\n");
+        exit(1);
+    }
 }
 
 // Function to check if the stack is empty
@@ -20,16 +29,20 @@ int isEmpty(Stack *s) {
     return s->top == -1;
 }
 
-// Function to check if the stack is full
-int isFull(Stack *s) {
-    return s->top == MAX - 1;
+// Function to resize the stack
+void resize(Stack *s) {
+    s->capacity *= 2;
+    s->items = (char *)realloc(s->items, s->capacity * sizeof(char));
+    if (s->items == NULL) {
+        printf("Memory reallocation failed\n");
+        exit(1);
+    }
 }
 
 // Function to push an element to the stack
 void push(Stack *s, char value) {
-    if (isFull(s)) {
-        printf("Stack Overflow\n");
-        return;
+    if (s->top == s->capacity - 1) {
+        resize(s);
     }
     s->items[++(s->top)] = value;
 }
@@ -96,6 +109,7 @@ void infixToPostfix(char* infix, char* postfix) {
     }
     
     postfix[j] = '\0';
+    free(s.items);  // Free the allocated memory
 }
 
 // Main function to demonstrate infix to postfix conversion
