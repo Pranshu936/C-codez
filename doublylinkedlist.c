@@ -86,6 +86,32 @@ void deleteAfter(struct Node *prevNode){
 
 }
 
+void swap(struct Node *a, struct Node *b){  
+    int temp = a->data;  
+    a->data = b->data;  
+    b->data = temp;  
+}
+
+void bubbleSort(struct Node *head)  {  
+    int swapped, i;  
+    struct Node *ptr1;  
+    struct Node *lptr = NULL;  
+    do{  
+        swapped = 0;  
+        ptr1 = head;
+        while (ptr1->next != lptr){  
+            if (ptr1->data > ptr1->next->data){  
+                swap(ptr1, ptr1->next);  
+                swapped = 1;  
+            }  
+            ptr1 = ptr1->next;  
+        }  
+        lptr = ptr1;  
+    }  
+    while(swapped);  
+}
+
+
 int main() {
     struct Node* head = (struct Node*)malloc(sizeof(struct Node));
     struct Node* second = (struct Node*)malloc(sizeof(struct Node));
@@ -115,6 +141,9 @@ int main() {
 
     printf("Traverse backward:\n");
     traverseBackward(head);
+    bubbleSort(head);
+    printf("sorted list is:-");
+    traverseForward(head);
 
     return 0;
 }
