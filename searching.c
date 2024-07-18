@@ -65,6 +65,12 @@ int main() {
 #include<stdio.h>
 int interpolationSearch(int arr[], int lo, int hi, int x){
     int pos;
+    if(lo==hi){
+        if(arr[lo]==x){
+            return lo;
+        }
+        return-1;
+    }
     if (lo <= hi && x >= arr[lo] && x <= arr[hi]) {
         pos = lo
               + (((double)(hi - lo) / (arr[hi] - arr[lo]))
@@ -76,20 +82,24 @@ int interpolationSearch(int arr[], int lo, int hi, int x){
         if (arr[pos] > x)
             return interpolationSearch(arr, lo, pos - 1, x);
     }
-    return -1
-        }
-
-int main() {
-    int arr[] = {10, 20, 30, 40, 50};
+    return -1;
+}
+      
+   int main() {
+    int arr[] = {10,12,13,14,16,18,20,21,25,26,30};
     int n = sizeof(arr) / sizeof(arr[0]);
-    int target = 30;
     
-    int result = interpolationSearch(arr,0,n-1, target);
-    if (result != -1) {
-        printf("Element %d found at index %d\n", target, result);
-    } else {
-        printf("Element %d not found in the array\n", target);
+    int key = 26;
+    if(n!=0){
+        int result = interpolationSearch(arr,0,n-1, key);
+        if (result != -1) {
+            printf("Element %d found at index %d\n", key, result);
+        } else {
+            printf("Element %d not found in the array\n", key);
+        }
     }
-    
+    else{
+        printf("array is empty.");
+    }
     return 0;
 }
