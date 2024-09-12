@@ -24,17 +24,13 @@ void inorder(struct Node* root){
     }
 }
 
-int max(int x, int y){
-    if(x > y){
-        return x;
-    }else{
-        return y;
-    }
+int max(int x, int y) {
+    return (x > y) ? x : y;
 }
 
 int tree_height( struct Node* root) {
     if (root == NULL) 
-        return 0;
+        return -1;
     else {
         int left_height = tree_height(root->left);
         int right_height = tree_height(root->right);
@@ -112,7 +108,6 @@ int main(){
     //delNode(root,11);
     //inorder(root);
     int y=tree_height(root);
-    int hi=y-1;
-    printf("%d",hi);
+    printf("%d",y);
     return 0;
 }
