@@ -24,6 +24,25 @@ void inorder(struct Node* root){
     }
 }
 
+int max(int x, int y){
+    if(x > y){
+        return x;
+    }else{
+        return y;
+    }
+}
+
+int tree_height( struct Node* root) {
+    if (root == NULL) 
+        return 0;
+    else {
+        int left_height = tree_height(root->left);
+        int right_height = tree_height(root->right);
+        int h=max(left_height, right_height)+1;
+        return h;
+    }
+}
+
 struct Node* insert(struct Node* root, int Data) {
     if (root == NULL) {
         return createNode(Data);
@@ -76,21 +95,24 @@ struct Node* delNode(struct Node* root, int x) {
 }
 
 int main(){
-    struct Node* root = createNode(12);
+    struct Node* root = createNode(3);
     // root->left=createNode(10);
     // root->right=createNode(20);
     // root->left->left=createNode(9);
     // root->left->right=createNode(11);
     // root->right->left=createNode(19);
     // root->right->right=createNode(24);
-    insert(root,10);
-    insert(root,20);
-    insert(root,24);
-    insert(root,9);
-    insert(root,19);
-    insert(root,11);
-    inorder(root);
-    delNode(root,11);
-    inorder(root);
+    insert(root,1);
+    insert(root,7);
+    insert(root,5);
+    insert(root,4);
+    // insert(root,6);
+    // insert(root,7);
+    //inorder(root);
+    //delNode(root,11);
+    //inorder(root);
+    int y=tree_height(root);
+    int hi=y-1;
+    printf("%d",hi);
     return 0;
 }
