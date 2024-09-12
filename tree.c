@@ -24,6 +24,22 @@ void inorder(struct Node* root){
     }
 }
 
+void preorder(struct Node* root) {
+    if (root != NULL) {
+        printf("%d\n", root->data);
+        preorder(root->left);
+        preorder(root->right);
+    }
+}
+
+void postorder(struct Node* root) {
+    if (root != NULL) {
+        postorder(root->left);
+        postorder(root->right);
+        printf("%d\n", root->data);
+    }
+}
+
 int max(int x, int y) {
     return (x > y) ? x : y;
 }
